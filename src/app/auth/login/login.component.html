@@ -1,1 +1,32 @@
-<p>login works!</p>
+<section class="h-100 d-flex flex-column align-items-center justify-content-center">
+  <form class="d-flex flex-column"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()">
+    <!-- Email Input -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput
+             type="email"
+             formControlName="email">
+    </mat-form-field>
+    <!-- Password Input -->
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput
+             [type]="hide ? 'password' : 'text'"
+             formControlName="password">
+      <button mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <!-- Submit button -->
+    <button mat-raised-button
+            type="submit"
+            color="primary"
+            [disabled]="loginForm.invalid">Login</button>
+  </form>
+</section>
