@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container class="h-100">
+  <mat-sidenav #sidenav
+               role="navigation"
+               class="h-100">
+    <!-- Overlay navigation on small screens -->
+    <app-sidenav-list (closeSidenav)="sidenav.close()"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="h-100">
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

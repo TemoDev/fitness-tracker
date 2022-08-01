@@ -1,0 +1,28 @@
+<mat-toolbar color="primary"
+             class="justify-content-between">
+  <button mat-icon-button
+          class="d-sm-none"
+          color="white"
+          aria-label="Example icon button with a menu icon"
+          (click)="onToggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="d-none d-sm-block">
+    <ul class="expanded-navigation d-flex gap-2 mb-0">
+      <li>
+        <a routerLink="/signup">Signup</a>
+      </li>
+      <li>
+        <a routerLink="/login">Login</a>
+      </li>
+      <li>
+        <a routerLink="/training">Training</a>
+      </li>
+      <li>
+        <a>Logout</a>
+      </li>
+    </ul>
+  </div>
+
+</mat-toolbar>

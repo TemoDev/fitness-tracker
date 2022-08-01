@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-fitness-tracker';
+  title = 'Fitness Tracker';
+
+  openSidenav: boolean = false;
+
 }
