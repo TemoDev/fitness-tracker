@@ -1,0 +1,76 @@
+<section class="d-flex flex-column h-100 justify-content-center align-items-center">
+
+  <!-- Taking a Template Driven approach to handle form validation and inputs. -->
+  <form class="d-flex flex-column text-center"
+        style="max-width: 300px; width: 100%;"
+        (ngSubmit)="onSubmit(f)"
+        #f="ngForm">
+    <!-- Email Field -->
+    <mat-form-field appearance="fill"
+                    style="max-width: 300px; width: 100%;">
+      <mat-label>Email</mat-label>
+      <input matInput
+             ngModel
+             type="email"
+             name="email"
+             email
+             required>
+    </mat-form-field>
+    <!-- Password Field -->
+    <mat-form-field appearance="fill"
+                    style="max-width: 300px; width: 100%;">
+      <mat-label>Enter your password</mat-label>
+      <input matInput
+             [type]="hide ? 'passwo rd' : 'text'"
+             ngModel
+             name="password"
+             required
+             minlength="6">
+      <mat-hint>Should be at least 6 characters.</mat-hint>
+      <mat-error>Must be at least 6 characters</mat-error>
+      <button mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Date Picker -->
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input matInput
+             [matDatepicker]="picker"
+             [max]="maxDate"
+             ngModel
+             name="birthdate"
+             required>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix
+                             [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <br>
+    <!-- Checkbox -->
+    <mat-checkbox class="align-self-start"
+                  ngModel
+                  name="agree"
+                  required
+                  color="primary">
+      Agree to Terms and Conditions.
+    </mat-checkbox>
+
+    <br>
+
+    <!-- Submit button -->
+    <button type="submit"
+            mat-raised-button
+            color="primary"
+            class="mt-3"
+            [disabled]="f.invalid">Sign up</button>
+
+  </form>
+
+</section>
