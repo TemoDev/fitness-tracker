@@ -19,7 +19,8 @@
               matSuffix
               (click)="hide = !hide"
               [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide">
+              [attr.aria-pressed]="hide"
+              type="button">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
@@ -27,6 +28,8 @@
     <button mat-raised-button
             type="submit"
             color="primary"
-            [disabled]="loginForm.invalid">Login</button>
+            [disabled]="loginForm.invalid"
+            *ngIf="!isLoading">Login</button>
+    <mat-spinner *ngIf="isLoading" class="mx-auto"></mat-spinner>
   </form>
 </section>

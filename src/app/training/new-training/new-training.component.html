@@ -2,12 +2,13 @@
       #f="ngForm">
   <mat-card class="p-4 text-center">
     <mat-card-title>Time to start a workout!</mat-card-title>
-    <mat-card-content>
+    <mat-card-content *ngIf="!isLoading">
       <mat-form-field appearance="fill">
         <mat-label>Choose Training</mat-label>
         <mat-select ngModel
                     name="exercise"
-                    required>
+                    required
+                    *ngIf="!isLoading">
           <mat-option *ngFor="let training of trainings"
                       [value]="training.id">
             {{training.name}}
@@ -20,6 +21,6 @@
               type="submit"
               [disabled]="f.invalid">Start</button>
     </mat-card-actions>
+    <mat-spinner class="mx-auto" *ngIf="isLoading"></mat-spinner>
   </mat-card>
-
 </form>
