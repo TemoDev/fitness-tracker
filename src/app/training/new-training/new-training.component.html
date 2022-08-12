@@ -9,7 +9,7 @@
                     name="exercise"
                     required
                     *ngIf="!(isLoading$ | async)">
-          <mat-option *ngFor="let training of trainings"
+          <mat-option *ngFor="let training of (trainings$ | async)"
                       [value]="training.id">
             {{training.name}}
           </mat-option>
