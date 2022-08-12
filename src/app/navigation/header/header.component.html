@@ -10,16 +10,16 @@
 
   <div class="d-none d-sm-block">
     <ul class="expanded-navigation d-flex gap-2 mb-0">
-      <li *ngIf="!isAuth">
+      <li *ngIf="!(isAuth$ | async)">
         <a routerLink="/signup">Signup</a>
       </li>
-      <li *ngIf="!isAuth">
+      <li *ngIf="!(isAuth$ | async)">
         <a routerLink="/login">Login</a>
       </li>
-      <li *ngIf="isAuth">
+      <li *ngIf="isAuth$ | async">
         <a routerLink="/training">Training</a>
       </li>
-      <li *ngIf="isAuth">
+      <li *ngIf="isAuth$ | async">
         <a style="cursor:pointer;"
            (click)="onLogout()">Logout</a>
       </li>

@@ -1,63 +1,66 @@
 import { Injectable } from "@angular/core";
 import { AuthData } from "./auth-data.model";
 
-import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { TrainingService } from "../training/training.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { UIService } from "../shared/ui.service";
+
+import * as fromRoot from '../app.reducer';
+import { Store } from "@ngrx/store";
+import * as UI from '../shared/ui.actions';
+import * as Auth from './auth.actions';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-    authChange = new Subject<boolean>();
     isAuthenticated: boolean =  false;
 
     constructor(
         private router: Router, 
         private afAuth: AngularFireAuth, 
         private trainingService: TrainingService,
-        private uiService: UIService     
+        private uiService: UIService,
+        private store: Store<fromRoot.State>     
     ) {}
 
     initAuthListener() {
         this.afAuth.authState.subscribe(user => {
             if(user) {
-                this.isAuthenticated = true;
+                this.store.dispatch(Auth.setAuthenticated());
                 this.router.navigate(["/training"]);
-                this.authChange.next(true);
             }else {
+                this.store.dispatch(Auth.setUnauthenticated());
                 this.trainingService.cancelSubscriptions();
-                this.isAuthenticated = false;
                 this.router.navigate(["/login"]);
-                this.authChange.next(false);
             }
         })
     }
 
     registerUser(authData: AuthData) {
-        this.uiService.loadingStateChanged.next(true);
+        // this.uiService.loadingStateChanged.next(true);
+        this.store.dispatch(UI.startLoading());
         this.afAuth.createUserWithEmailAndPassword(authData.email, authData.password)
         .then(result => {
             console.log(result);
-            this.uiService.loadingStateChanged.next(false);
+            this.store.dispatch(UI.stopLoading());
         }).catch(err => {
-            this.uiService.loadingStateChanged.next(false);
+            // this.uiService.loadingStateChanged.next(false);
+            this.store.dispatch(UI.stopLoading());
             this.uiService.showSnackbar(err.message, '', 4000);
         })
     }
 
 
     login(authData: AuthData) {
-        this.uiService.loadingStateChanged.next(true);
+        this.store.dispatch(UI.startLoading());
         this.afAuth.signInWithEmailAndPassword(authData.email, authData.password)
         .then( result => {
             console.log(result);
-            this.uiService.loadingStateChanged.next(false);
+            this.store.dispatch(UI.stopLoading());
         })
         .catch(err => {
-            this.uiService.loadingStateChanged.next(false);
+            this.store.dispatch(UI.stopLoading());
             console.log(err);
             this.uiService.showSnackbar(err.message, '', 4000);
         })
@@ -65,9 +68,5 @@ export class AuthService {
 
     logout() {
         this.afAuth.signOut();
-    }
-
-    isAuth() {
-        return this.isAuthenticated;
     }
 }

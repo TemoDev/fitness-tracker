@@ -18,6 +18,8 @@ import { environment } from '../environments/environment';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AuthModule } from './auth/auth.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
 
 
 
@@ -40,6 +42,7 @@ import { AuthModule } from './auth/auth.module';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     AuthModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [],
   bootstrap: [AppComponent],

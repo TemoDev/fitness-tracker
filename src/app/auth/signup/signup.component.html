@@ -71,8 +71,8 @@
             color="primary"
             class="mt-3"
             [disabled]="f.invalid"
-            *ngIf="!isLoading">Sign up</button>
-    <mat-spinner *ngIf="isLoading" class="mx-auto"></mat-spinner>
+            *ngIf="!(isLoading$ | async)">Sign up</button>
+    <mat-spinner *ngIf="isLoading$ | async" class="mx-auto"></mat-spinner>
   </form>
 
 </section>

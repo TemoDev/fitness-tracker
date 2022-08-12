@@ -29,7 +29,7 @@
             type="submit"
             color="primary"
             [disabled]="loginForm.invalid"
-            *ngIf="!isLoading">Login</button>
-    <mat-spinner *ngIf="isLoading" class="mx-auto"></mat-spinner>
+            *ngIf="!(isLoading$ | async)">Login</button>
+    <mat-spinner *ngIf="isLoading$ | async" class="mx-auto"></mat-spinner>
   </form>
 </section>
